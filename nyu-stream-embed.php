@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: NYU Stream Embed (Accessibility Ready)
+Plugin Name: NYU Stream Embed
 Description: Enables embedding an NYU Stream video/playlist from its URL or vid via the [nyustream] shortcode. Accepts attributes url(complete url), vid(video id), playlist(playlist id), w(width), h(height), title(title) and fullscreen(allow fullscreen). You can use values fullscreen = "no" or "false" to disable fullscreen.
 Plugin URI: https://github.com/KonainM/nyu-stream-embeds.git
 Author: Harshit Sanghvi, Konain Mukadam, Neel Shah
@@ -324,17 +324,26 @@ class NYU_Stream_Embed {
             $iframe_play_src = "https://cdnapisec.kaltura.com/p/1674401/sp/167440100/embedIframeJs/uiconf_id/23437711/partner_id/1674401/widget_id/1_zh8d6z1g?iframeembed=true&playerId=kaltura_player_1390404249&flashvars[playlistAPI.autoContinue]=true&flashvars[playlistAPI.autoInsert]=true&flashvars[ks]=";
         }
 
-        if(!empty($atts['title'])) //Konain's title function
+        if(!empty($atts['title'])) //Konain's video title function
         {
-          $km_title = $atts['title'];
+          $km_video_title = $atts['title'];
         }
         else
         {
-          $km_title = "nyu_stream_video '. $iframe_vid_id .'";
+          $km_video_title = "nyu_stream_video '. $iframe_vid_id .'";
+        }
+
+        if(!empty($atts['title'])) //Konain's playlist title function
+        {
+          $km_playlist_title = $atts['title'];
+        }
+        else
+        {
+          $km_playlist_title = "nyu_stream_playlist";
         }
 
         $html .= '
-            <div class = "nyu_stream" id = "nyu_stream" title = "'. $km_title .'">
+            <div class = "nyu_stream" id = "nyu_stream" title = "'. $km_video_title .'" aria-label="nyu stream">
         ';
 
 
@@ -343,12 +352,12 @@ class NYU_Stream_Embed {
             if( $is_playlist != 1 ) {
                 $html .= '
                 <iframe id="'. $iframe_vid_id .'" src="'. $iframe_vid_src . $atts['vid']. '" width="'.$atts['w'].'" height="'.
-                $atts['h'].'" '.$atts['fullscreen'].' frameborder="0" title = "'. $km_title .'"></iframe>';
+                $atts['h'].'" '.$atts['fullscreen'].' frameborder="0" title = "'. $km_video_title .'" aria-label="nyu stream video"></iframe>';
             }
             else {
                 $html .=  '
                 <iframe src="' . $iframe_play_src . $atts['playlist'] . '" width="'.$playlist['w'].'" height="'.$playlist['h'].'"'.
-                ' allowfullscreen webkitallowfullscreen mozAllowFullScreen frameborder="0" aria-label="nyu stream playlist"></iframe>
+                ' allowfullscreen webkitallowfullscreen mozAllowFullScreen frameborder="0" title="' .$km_playlist_title. '" aria-label="nyu stream playlist"></iframe>
                 ';
             }
         }
