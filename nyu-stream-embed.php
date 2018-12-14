@@ -374,5 +374,5 @@ class NYU_Stream_Embed {
 
 }
 
-global $nyu_strem_embed;
+global $nyu_stream_embed;
 $nyu_stream_embed = new NYU_Stream_Embed();
