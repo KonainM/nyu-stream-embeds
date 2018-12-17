@@ -330,7 +330,7 @@ class NYU_Stream_Embed {
         }
         else
         {
-          $km_video_title = "nyu stream video'. $iframe_vid_id'";
+          $km_video_title = "NYU stream video'. $iframe_vid_id .'";
         }
 
         if(!empty($atts['title'])) //Konain's playlist title function
@@ -339,7 +339,7 @@ class NYU_Stream_Embed {
         }
         else
         {
-          $km_playlist_title = "nyu stream playlist";
+          $km_playlist_title = "NYU stream playlist";
         }
 
         $html .= '
